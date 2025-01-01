@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ScreenSound.Modelos;
 
 namespace ScreenSound.Banco;
-internal class DAL<T> where T : class
-{
-    protected readonly ScreenSoundContext context;
 
+public class DAL<T> where T : class
+{
+    private readonly ScreenSoundContext context;
     public DAL(ScreenSoundContext context)
     {
         this.context = context;
@@ -33,7 +29,10 @@ internal class DAL<T> where T : class
         context.Set<T>().Remove(objeto);
         context.SaveChanges();
     }
-
+    //public IEnumerable<T> RecuperarPor(Func<T, bool> condicao)
+    //{
+    //    return context.Set<T>().Where(condicao).ToList();
+    //}
     public T? RecuperarPor(Func<T, bool> condicao)
     {
         return context.Set<T>().FirstOrDefault(condicao);

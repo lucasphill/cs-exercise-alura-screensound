@@ -5,7 +5,7 @@
 namespace ScreenSound.Migrations
 {
     /// <inheritdoc />
-    public partial class RelacionarArtistaMusica : Migration
+    public partial class RelacionaMusicaArtista : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -3,7 +3,8 @@
 public class Artista 
 {
     public virtual ICollection<Musica> Musicas { get; set; } = new List<Musica>();
-
+    
+    //public Artista() { }
     public Artista(string nome, string bio)
     {
         Nome = nome;
@@ -26,15 +27,15 @@ public class Artista
         Console.WriteLine($"Discografia do artista {Nome}");
         foreach (var musica in Musicas)
         {
-            Console.WriteLine($"Música: {musica.Nome} - Ano de Lançamento: {musica.AnoLancamento}");
+            Console.WriteLine($"Música: {musica.Nome} ({musica.AnoLancamento})");
         }
     }
 
     public override string ToString()
     {
-        return $@"Id: {Id}
-            Nome: {Nome}
-            Foto de Perfil: {FotoPerfil}
-            Bio: {Bio}";
+        return $@"Id: {Id} 
+Nome: {Nome} 
+Foto de Perfil: {FotoPerfil} 
+Bio: {Bio}" + "\n";
     }
 }
