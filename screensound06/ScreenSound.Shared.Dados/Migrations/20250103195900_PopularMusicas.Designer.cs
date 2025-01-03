@@ -9,11 +9,11 @@ using ScreenSound.Banco;
 
 #nullable disable
 
-namespace ScreenSound.Migrations
+namespace ScreenSound.Shared.Dados.Migrations
 {
     [DbContext(typeof(ScreenSoundContext))]
-    [Migration("20241230012544_AdicionarColunaAnoLancamento")]
-    partial class AdicionarColunaAnoLancamento
+    [Migration("20250103195900_PopularMusicas")]
+    partial class PopularMusicas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,9 @@ namespace ScreenSound.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.20")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -61,13 +64,32 @@ namespace ScreenSound.Migrations
                     b.Property<int?>("AnoLancamento")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ArtistaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtistaId");
+
                     b.ToTable("Musicas");
+                });
+
+            modelBuilder.Entity("ScreenSound.Modelos.Musica", b =>
+                {
+                    b.HasOne("ScreenSound.Modelos.Artista", "Artista")
+                        .WithMany("Musicas")
+                        .HasForeignKey("ArtistaId");
+
+                    b.Navigation("Artista");
+                });
+
+            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
+                {
+                    b.Navigation("Musicas");
                 });
 #pragma warning restore 612, 618
         }
